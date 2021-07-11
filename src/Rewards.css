@@ -1,0 +1,14 @@
+#page {
+  width: 1200px;
+  margin: 30px auto;
+}
+.transactions {
+  width: 100%;
+  border: 1px solid black;
+}
+.center {
+  text-align: center;
+}
+th, tr td {
+  border: 1px solid black;
+}

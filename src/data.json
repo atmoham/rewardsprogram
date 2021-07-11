@@ -1,0 +1,87 @@
+{
+    "customers": [
+        {
+            "id": 1,
+            "name": "Rus Water"
+        },
+        {
+            "id": 2,
+            "name": "Dakota John"
+        },
+        {
+            "id": 3,
+            "name": "Cortes Hilbert"
+        },
+        {
+            "id": 4,
+            "name": "Katrina Hills"
+        }
+    ],
+    "transactions": [
+        {
+            "date": "04/03/2021 10:30 PM",
+            "customer_id": 1,
+            "amount": 120
+        },
+        {
+            "date": "04/04/2021 10:30 PM",
+            "customer_id": 1,
+            "amount": 20
+        },
+        {
+            "date": "05/09/2021 1:30 PM",
+            "customer_id": 1,
+            "amount": 330
+        },
+        {
+            "date": "05/12/2021 11:00 AM",
+            "customer_id": 1,
+            "amount": 45
+        },
+        {
+            "date": "05/20/2021 2:30 PM",
+            "customer_id": 1,
+            "amount": 55
+        },
+        {
+            "date": "05/21/2021 5:00 PM",
+            "customer_id": 1,
+            "amount": 155
+        },
+        {
+            "date": "06/03/2021 10:30 PM",
+            "customer_id": 1,
+            "amount": 192
+        },
+        {
+            "date": "06/11/2021 4:00 AM",
+            "customer_id": 1,
+            "amount": 256
+        },
+        {
+            "date": "06/13/2021 9:00 PM",
+            "customer_id": 1,
+            "amount": 630
+        },
+        {
+            "date": "06/18/2021 8:30 PM",
+            "customer_id": 1,
+            "amount": 32
+        },
+        {
+            "date": "06/19/2021 6:00 PM",
+            "customer_id": 1,
+            "amount": 105
+        },
+        {
+            "date": "06/19/2021 10:00 PM",
+            "customer_id": 1,
+            "amount": 111
+        },
+        {
+            "date": "06/22/2021 05:30 AM",
+            "customer_id": 1,
+            "amount": 459
+        }
+    ]
+}

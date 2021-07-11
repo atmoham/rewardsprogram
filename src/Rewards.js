@@ -23,16 +23,25 @@ function Rewards() {
 
   data.customers.forEach((customer, index) => {
     let currentMonth = new Date().getMonth();
+    let currentYear = new Date().getFullYear();
     let monthsData = [];
     let totalRewards = 0;
-    for (var i = 0; i < monthLimit; i++, currentMonth--) { // Loop till monthsLimit
+    for (var i = 0; i < monthLimit; i++, currentMonth--) {
+      // Loop till monthsLimit
       let rewards = 0;
-      if (currentMonth < 0) currentMonth = 12; // If the currentMonth is January
+      if (currentMonth < 0) {
+        currentMonth = 12;
+        currentYear--;
+      } // If the currentMonth is January
       // eslint-disable-next-line no-loop-func
       data.transactions.forEach(transaction => {
         if (customer.id === transaction.customer_id) {
           const transactionMonth = new Date(transaction.date).getMonth();
-          if (transactionMonth === currentMonth) { 
+          const transactionYear = new Date(transaction.date).getFullYear();
+          if (
+            transactionMonth === currentMonth &&
+            transactionYear === currentYear
+          ) {
             /* Calculate rewards 2 points for every dollar spent over $100 in each transaction, 
                plus 1 point for every dollar spent over $50 */
             rewards +=
@@ -44,7 +53,11 @@ function Rewards() {
           }
         }
       });
-      monthsData[i] = { value: rewards, month: monthsMap[currentMonth] };
+      monthsData[i] = {
+        value: rewards,
+        month: monthsMap[currentMonth],
+        year: currentYear,
+      };
       totalRewards += rewards;
     }
 
@@ -74,12 +87,16 @@ const Table = ({ tableData }) => {
           {tableData.map(customer => (
             <>
               <tr key={customer.name}>
-                <td rowSpan={customer.months.length + 1} className="center">{customer.name}</td>
-                <td rowSpan={customer.months.length + 1} className="center">{customer.total}</td>
+                <td rowSpan={customer.months.length + 1} className="center">
+                  {customer.name}
+                </td>
+                <td rowSpan={customer.months.length + 1} className="center">
+                  {customer.total}
+                </td>
               </tr>
               {customer.months.map(month => (
                 <tr key={month.month}>
-                  <td className="center">{`${month.month} : ${month.value}`}</td>
+                  <td className="center">{`${month.month} ${month.year} : ${month.value}`}</td>
                 </tr>
               ))}
             </>
@@ -87,7 +104,9 @@ const Table = ({ tableData }) => {
         </tbody>
         <tfoot>
           <tr>
-            <td className="center" colSpan="3">{data.customers.length} Customers</td>
+            <td className="center" colSpan="3">
+              {data.customers.length} Customers
+            </td>
           </tr>
         </tfoot>
       </table>

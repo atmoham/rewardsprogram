@@ -82,6 +82,71 @@
             "date": "06/22/2021 05:30 AM",
             "customer_id": 1,
             "amount": 459
+        },
+        {
+            "date": "07/03/2021 1:45 PM",
+            "customer_id": 2,
+            "amount": 135
+        },
+        {
+            "date": "04/05/2021 12:13 PM",
+            "customer_id": 3,
+            "amount": 29
+        },
+        {
+            "date": "05/19/2021 1:30 PM",
+            "customer_id": 3,
+            "amount": 210
+        },
+        {
+            "date": "05/21/2021 11:00 AM",
+            "customer_id": 4,
+            "amount": 51
+        },
+        {
+            "date": "06/20/2021 2:30 PM",
+            "customer_id": 2,
+            "amount": 75
+        },
+        {
+            "date": "07/10/2021 5:00 PM",
+            "customer_id": 2,
+            "amount": 181
+        },
+        {
+            "date": "06/13/2021 10:30 PM",
+            "customer_id": 4,
+            "amount": 190
+        },
+        {
+            "date": "05/11/2021 4:00 AM",
+            "customer_id": 4,
+            "amount": 300
+        },
+        {
+            "date": "06/23/2021 9:00 PM",
+            "customer_id": 3,
+            "amount": 200
+        },
+        {
+            "date": "06/26/2021 8:30 PM",
+            "customer_id": 2,
+            "amount": 405
+        },
+        {
+            "date": "05/19/2021 6:00 PM",
+            "customer_id": 2,
+            "amount": 105
+        },
+        {
+            "date": "06/30/2021 10:00 PM",
+            "customer_id": 4,
+            "amount": 142
+        },
+        {
+            "date": "07/02/2021 05:30 AM",
+            "customer_id": 3,
+            "amount": 380
         }
     ]
 }

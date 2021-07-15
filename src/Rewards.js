@@ -1,5 +1,6 @@
+import React from 'react';
 import './Rewards.css';
-import data from './data.json';
+import axios from 'axios';
 
 const monthsMap = [
   'January',
@@ -17,58 +18,74 @@ const monthsMap = [
 ];
 
 const monthLimit = 3; // Three months period
+const URL = 'http://localhost:3000/data';
 
 function Rewards() {
-  let formattedData = [];
+  const [data, setData] = React.useState([]);
 
-  data.customers.forEach((customer, index) => {
-    let currentMonth = new Date().getMonth();
-    let currentYear = new Date().getFullYear();
-    let monthsData = [];
-    let totalRewards = 0;
-    for (var i = 0; i < monthLimit; i++, currentMonth--) {
-      // Loop till monthsLimit
-      let rewards = 0;
-      if (currentMonth < 0) {
-        currentMonth = 12;
-        currentYear--;
-      } // If the currentMonth is January
-      // eslint-disable-next-line no-loop-func
-      data.transactions.forEach(transaction => {
-        if (customer.id === transaction.customer_id) {
-          const transactionMonth = new Date(transaction.date).getMonth();
-          const transactionYear = new Date(transaction.date).getFullYear();
-          if (
-            transactionMonth === currentMonth &&
-            transactionYear === currentYear
-          ) {
-            /* Calculate rewards 2 points for every dollar spent over $100 in each transaction, 
+  React.useEffect(() => {
+    axios
+      .get(URL)
+      .then(res => {
+        setData(
+          res.data.customers.map(customer => {
+            let currentMonth = new Date().getMonth();
+            let currentYear = new Date().getFullYear();
+            let monthsData = [];
+            let totalRewards = 0;
+            for (var i = 0; i < monthLimit; i++, currentMonth--) {
+              // Loop till monthsLimit
+              let rewards = 0;
+              if (currentMonth < 0) {
+                currentMonth = 12;
+                currentYear--;
+              } // If the currentMonth is January
+              // eslint-disable-next-line no-loop-func
+              res.data.transactions.forEach(transaction => {
+                if (customer.id === transaction.customer_id) {
+                  const transactionMonth = new Date(
+                    transaction.date
+                  ).getMonth();
+                  const transactionYear = new Date(
+                    transaction.date
+                  ).getFullYear();
+                  if (
+                    transactionMonth === currentMonth &&
+                    transactionYear === currentYear
+                  ) {
+                    /* Calculate rewards 2 points for every dollar spent over $100 in each transaction, 
                plus 1 point for every dollar spent over $50 */
-            rewards +=
-              transaction.amount > 100
-                ? (transaction.amount - 100) * 2 + 50
-                : transaction.amount >= 50
-                ? transaction.amount - 50
-                : 0;
-          }
-        }
+                    rewards +=
+                      transaction.amount > 100
+                        ? (transaction.amount - 100) * 2 + 50
+                        : transaction.amount >= 50
+                        ? transaction.amount - 50
+                        : 0;
+                  }
+                }
+              });
+              monthsData[i] = {
+                value: rewards,
+                month: monthsMap[currentMonth],
+                year: currentYear,
+              };
+              totalRewards += rewards;
+            }
+
+            return {
+              name: customer.name,
+              months: monthsData,
+              total: totalRewards,
+            };
+          })
+        );
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
       });
-      monthsData[i] = {
-        value: rewards,
-        month: monthsMap[currentMonth],
-        year: currentYear,
-      };
-      totalRewards += rewards;
-    }
+  }, []);
 
-    formattedData[index] = {
-      name: customer.name,
-      months: monthsData,
-      total: totalRewards,
-    };
-  });
-
-  return <Table tableData={formattedData} />;
+  return <Table tableData={data} />;
 }
 
 const Table = ({ tableData }) => {
@@ -105,7 +122,7 @@ const Table = ({ tableData }) => {
         <tfoot>
           <tr>
             <td className="center" colSpan="3">
-              {data.customers.length} Customers
+              {tableData.length} Customers
             </td>
           </tr>
         </tfoot>
